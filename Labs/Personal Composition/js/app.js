@@ -11,20 +11,21 @@ function setup() {
   circleColor = color(255, 0, 0);
 }
 
+//Create chef
 function draw() {
   background(backgroundColor);
   
   //Draw circles
   fill(circleColor);
   noStroke();
-  ellipse(200, 200, 100, 100);
-  ellipse(150, 150, 50, 50);
+  ellipse(500, 200, 400, 150);
+  ellipse(280, 200, 50, 50);
   
   //Draw rectangles
   fill(0, 3440, 255);
   noStroke();
-  rect(135, 135, 30, 30);
-  rect(250, 190, 20, 40);
+  rect(160, 175, 100, 50);
+  rect(350, 190, 20, 40);
   
 }
 
