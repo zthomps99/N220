@@ -1,3 +1,4 @@
+//define the board size and ship lengths
 const boardSize = 10;
 const shipLengths = [5, 4, 3, 3, 2]; // Different ship lengths
 
@@ -6,6 +7,7 @@ const resetButton = document.getElementById('reset-button');
 const ships = [];
 let isGameOver = false;
 
+//creates the game board
 function createBoard() {
     for (let row = 0; row < boardSize; row++) {
         for (let col = 0; col < boardSize; col++) {
@@ -18,7 +20,7 @@ function createBoard() {
         }
     }
 }
-
+//places the ships randomly on the board
 function placeShips() {
     for (const length of shipLengths) {
         const isVertical = Math.random() < 0.5;
@@ -28,11 +30,13 @@ function placeShips() {
         };
 
         if (isVertical) {
+            //place ship vertically
             const startRow = Math.floor(Math.random() * (boardSize - length + 1));
             const col = Math.floor(Math.random() * boardSize);
             for (let i = 0; i < length; i++) {
                 ship.positions.push({ row: startRow + i, col: col });
             }
+            //place ship horizontally
         } else {
             const startCol = Math.floor(Math.random() * (boardSize - length + 1));
             const row = Math.floor(Math.random() * boardSize);
@@ -48,14 +52,14 @@ function placeShips() {
 function handleCellClick(row, col) {
     if (isGameOver) return;
 
-    // Check if the clicked cell hits a ship
+    //check if the clicked cell hits a ship
     for (const ship of ships) {
         for (const position of ship.positions) {
             if (position.row === row && position.col === col) {
-                // Mark the cell as hit
+                //mark the cell as hit
                 document.querySelector(`[data-row="${row}"][data-col="${col}"]`).classList.add('hit');
 
-                // Check if the ship is sunk
+                //check if the ship is sunk
                 const isSunk = ship.positions.every(pos =>
                     document.querySelector(`[data-row="${pos.row}"][data-col="${pos.col}"]`).classList.contains('hit')
                 );
@@ -69,10 +73,10 @@ function handleCellClick(row, col) {
         }
     }
 
-    // Mark the cell as miss
+    //mark the cell as miss
     document.querySelector(`[data-row="${row}"][data-col="${col}"]`).classList.add('miss');
 }
-
+//reset the game board
 function resetGame() {
     board.innerHTML = '';
     ships.length = 0;
@@ -80,7 +84,7 @@ function resetGame() {
     createBoard();
     placeShips();
 }
-
+//initialize the game
 createBoard();
 placeShips();
 resetButton.addEventListener('click', resetGame);
